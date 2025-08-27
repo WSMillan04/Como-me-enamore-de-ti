@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cómo me enamoré de ti, Lina</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #ffeef8 0%, #f8e8ff 50%, #ffe8f0 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Sección Hero */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23ffffff20"/><circle cx="80" cy="40" r="1.5" fill="%23ffffff30"/><circle cx="40" cy="80" r="1" fill="%23ffffff20"/><circle cx="90" cy="70" r="2.5" fill="%23ffffff15"/><circle cx="10" cy="60" r="1.8" fill="%23ffffff25"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100px, -100px); }
+        }
+        
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            z-index: 2;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Índice */
+        .index-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8e8ff 0%, #ffeef8 100%);
+        }
+        
+        .index-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .index-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 2rem;
+        }
+        
+        .index-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 2rem;
+        }
+        
+        .index-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .index-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .index-date {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        
+        .index-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #d63384;
+        }
+        
+        /* Secciones */
+        .section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section:nth-child(even) {
+            background: linear-gradient(135deg, #ffeef8 0%, #f0e6ff 100%);
+        }
+        
+        .section-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        
+        .section-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .image-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #d63384;
+            margin-bottom: 1rem;
+        }
+        
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight-date {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 600;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background: linear-gradient(135deg, #ffc0cb, #ffb6c1);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-placeholder:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Galería de fotos */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .photo-slot {
+            background: none; /* quitamos el fondo rosado */
+            border-radius: 15px;
+            overflow: hidden; /* evita que la imagen se salga del marco */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-slot:hover {
+            transform: translateY(-3px);
+        }
+
+        .photo-slot img {
+            width: 100%;
+            height: auto; /* mantiene la proporción original */
+            display: block;
+            border-radius: 15px;
+        }
+        
+        /* Secciones solo texto */
+        .text-only-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .text-only-section .section-content {
+            flex-direction: column;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Sección especial del primer beso */
+        .kiss-section {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .kiss-section h2 {
+            color: white;
+            font-size: 3.5rem;
+        }
+        
+        .kiss-section p {
+            color: white;
+            font-size: 1.3rem;
+        }
+        
+        /* Sección del picnic */
+        .picnic-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+        
+        .picnic-section h2 {
+            color: #d63384;
+        }
+        
+        /* Sección de ser novios */
+        .girlfriend-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+        
+        .girlfriend-section h2 {
+            color: #d63384;
+        }
+        
+        /* Sección final */
+        .final-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 0;
+        }
+        
+        .final-section h2 {
+            color: white;
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+        
+        .final-section p {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: white;
+        }
+        
+        /* Corazones flotantes */
+        .heart {
+            position: absolute;
+            color: #ff69b4;
+            font-size: 20px;
+            animation: floatHearts 15s infinite linear;
+            opacity: 0.7;
+        }
+        
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .section h2 {
+                font-size: 2.5rem;
+            }
+            
+            .section p {
+                font-size: 1.1rem;
+            }
+            
+            .final-section h2 {
+                font-size: 3rem;
+            }
+            
+            .image-placeholder {
+                height: 250px;
+            }
+            
+            .photo-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .index-list {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Botón suave */
+        .soft-button {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .soft-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 154, 158, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sección Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Cómo me enamoré de ti</h1>
+            <p>Una historia para Lina ❤️</p>
+        </div>
+        <div class="scroll-indicator" onclick="document.querySelector('.index-section').scrollIntoView({behavior: 'smooth'})">
+            ↓ Nuestra historia ↓
+        </div>
+    </section>
+
+    <!-- Índice -->
+    <section class="index-section">
+        <div class="container">
+            <div class="index-content">
+                <h2>Nuestra Historia de Amor</h2>
+                <p>Los momentos más importantes de cómo me enamoré de ti</p>
+                <div class="index-list">
+                    <a href="#match" class="index-item">
+                        <div class="index-date">19 de Marzo</div>
+                        <div class="index-title">El comienzo de todo</div>
+                    </a>
+                    <a href="#primera-cita" class="index-item">
+                        <div class="index-date">14 de Abril</div>
+                        <div class="index-title">Nuestra primera cita</div>
+                    </a>
+                    <a href="#ceramica" class="index-item">
+                        <div class="index-date">21 de Abril</div>
+                        <div class="index-title">El día que quedé flechado</div>
+                    </a>
+                    <a href="#excusas" class="index-item">
+                        <div class="index-date">Después del 21</div>
+                        <div class="index-title">Buscando cualquier excusa</div>
+                    </a>
+                    <a href="#beso" class="index-item">
+                        <div class="index-date">5 de Mayo</div>
+                        <div class="index-title">Nuestro primer beso</div>
+                    </a>
+                    <a href="#picnic" class="index-item">
+                        <div class="index-date">6 de Julio</div>
+                        <div class="index-title">El picnic que lo cambió todo</div>
+                    </a>
+                    <a href="#novia" class="index-item">
+                        <div class="index-date">27 de Agosto</div>
+                        <div class="index-title">¿Quieres ser mi novia?</div>
+                    </a>
+                    <a href="#fotos" class="index-item">
+                        <div class="index-date">Recuerdos</div>
+                        <div class="index-title">Nuestros momentos especiales</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 1: El match -->
+    <section id="match" class="section text-only-section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>El comienzo de todo</h2>
+                    <div class="highlight-date">19 de Marzo - Nuestro match</div>
+                    <p>Aunque a ninguno de los dos nos gusta admitirlo, nos conocimos por Facebook Parejas. Pero ¿sabes qué, Amor? Hoy me alegra haber abierto la app ese día, porque gracias a eso llegué hasta ti.</p>
+                    <p>Tus fotos fueron lo primero que me llamó la atención, había algo en ti que me hacía querer conocerte más. Y aunque al principio me respondías cada dos días, disfrutaba tanto la conversación que siempre tenía ganas de seguir escribiéndote.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: Primera cita -->
+    <section id="primera-cita" class="section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>Nuestra primera cita</h2>
+                    <div class="highlight-date">14 de Abril</div>
+                    <p>Las primeras interacciones del día fueron difíciles, lo admito. Ambos somos introvertidos y al principio la conversación no fluía como esperábamos.</p>
+                    <p>Pero poco a poco, a medida que iba pasando el tiempo, la charla comenzó a fluir mucho más. Y ahí me di cuenta de que había algo especial entre nosotros.</p>
+                    <p>Cuando llegó el día de vernos en persona, pensé por un momento que no ibas a llegar, porque llegaste casi una hora más tarde de lo planeado y yo estaba super nervioso. Pero en cuanto te vi entrar por la puerta, todo eso desapareció… te veías todavía más linda que en las fotos, y ahí confirmé que valía la pena cada minuto de espera.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: El momento especial - Cerámica -->
+    <section id="ceramica" class="section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>El día que quedé flechado</h2>
+                    <div class="highlight-date">21 de Abril</div>
+                    <p>Nuestra tercera cita. El día que definitivamente supe que me estaba enamorando de ti, Lina.</p>
+                    <p>Pintamos un Sullivan juntos, y me encantó ver la atención que le ponías a cada detalle de la cerámica, buscando siempre la perfección. Me hacía sonreír cada vez que me preguntabas si estaba quedando bien, sabiendo que yo tengo cero toque artístico.</p>
+                    <p>Ese día fue especial porque fue la primera vez que realmente estuvimos tan cerca riéndonos, hablando, disfrutando de cada momento. Me encantó tu risa, tu forma de concentrarte, y en general… me encantó todo de ti. ❤️</p>
+                </div>
+                <div class="image-content">
+                    <img src="Sullivan.jpg" alt="Cerámica que pintamos juntos" style="max-width:100%; border-radius: 12px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 4: Buscando excusas -->
+    <section id="excusas" class="section text-only-section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>Buscando cualquier excusa</h2>
+                    <p>No sé si recuerdas, pero después del día de la cerámica, buscaba cualquier excusa para vernos. Cualquier pretexto me parecía perfecto con tal de pasar más tiempo contigo.</p>
+                    <p>La verdad es que quería besarte hace mucho tiempo, pero no sabía cómo hacerlo. Estaba demasiado nervioso y no me atrevía a dar ese paso.</p>
+                    <p>Eras tan especial para mí que tenía miedo de arruinar lo que estábamos construyendo juntos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 5: Primer beso -->
+    <section id="beso" class="section kiss-section text-only-section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>Nuestro primer beso</h2>
+                    <div class="highlight-date">5 de Mayo</div>
+                    <p>Ese día también fue uno de esos en los que buscaba cualquier excusa para verte. La razón, en teoría, era un trabajo de mi tía que necesitaba hacer, aunque perfectamente podía haber buscado un tutorial... pero lo que en verdad quería era pasar tiempo contigo.</p>
+                    <p>Al principio te cité en una cafetería, porque en mi mente planeaba besarte ahí. Pero entre los nervios y que todavía no sentía que estuviéramos tan cerca, no me atreví a hacerlo. Y como además cerraban a las 7, salimos temprano, sin ganas de despedirnos todavía.</p>
+                    <p>Aprovechamos entonces para ir al BBC del centro comercial San Martín, buscando una charla un poco más íntima. Y ahí, entre risas, conversaciones y con la ayuda de un par de cervezas que soltaron los nervios, lo intenté… aunque al principio me quitaste la cara un par de veces. No sabía cómo sentirme en ese momento, tenía mil cosas en la cabeza, pero hoy me alegra tanto, porque ahora hasta hacemos bromas de eso y es parte de lo nuestro.</p>
+                    <p>Al final, cuando por fin sucedió y nuestros labios se encontraron, todo valió la pena. Desde entonces, el BBC dejó de ser solo una cervecería se convirtió en el lugar donde nuestro primer beso quedó marcado para siempre. ❤️</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 6: El picnic -->
+    <section id="picnic" class="section picnic-section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>El picnic</h2>
+                    <div class="highlight-date">6 de Julio</div>
+                    <p>Este día fue muy importante para mí, Lina, por todo lo que representaba. Conocer a tu círculo de amigos era un paso más en esa linda relación que estábamos construyendo, y me dejó claro que yo era importante para ti.</p>
+                    <p>Me gustó mucho cómo me integraste con ellos y cómo lograste que me sintiera parte de ese momento contigo. Eso para mí significó más de lo que imaginas.</p>
+                    <p>Ese día comprendí que lo nuestro era real y que tenía un futuro, y fue justo ahí cuando empecé a pensar que quería llevar nuestra relación a un siguiente paso. ❤️</p>
+                </div>
+                <div class="image-content">
+                    <img src="Picnic.jpg" alt="Foto del picnic con tus amigos" style="max-width:100%; border-radius:12px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 7: Ser novios -->
+    <section id="novia" class="section girlfriend-section text-only-section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>¿Quieres ser mi novia?</h2>
+                    <div class="highlight-date">27 de Agosto</div>
+                    <p>Después de ese picnic del 6 de julio, me quedó dando vueltas en la cabeza la idea de proponerte que fueras mi novia. Así que cuando llegó el momento, pensé en hacerlo en otro picnic, esta vez solo los dos.</p>
+                    <p>La idea era pedirte que fueras mi novia en el parque, mientras terminaba de pintar el cuadro en el que te escribí la pregunta. Pero como llegaste un poco tarde, lo cerraron antes de que pudiera terminarlo.</p>
+                    <p>Así que terminamos en una panadería, y ahí, en medio de ese lugar sencillo pero especial, te pedí que fueras mi novia. Y cuando dijiste que sí... Lina, fue uno de los momentos más felices. ❤️</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 8: Galería -->
+    <section id="fotos" class="section">
+        <div class="container">
+            <div class="section-content">
+                <div class="text-content">
+                    <h2>Nuestros momentos especiales</h2>
+                    <p>Cada foto cuenta una historia, cada momento juntos se vuelve un recuerdo invaluable.</p>
+                    <p>Desde nuestras citas pintando cerámica hasta todos esos pequeños momentos que hacen que cada día contigo sea perfecto.</p>
+                    <div class="photo-gallery">
+                        <div class="photo-slot">
+                            <img src="Colpatria.jpg" alt="Foto en Colpatria" style="width:100%; border-radius:12px;">
+                        </div>
+                        <div class="photo-slot">
+                            <img src="Centro.jpg" alt="Foto en el Centro" style="width:100%; border-radius:12px;">
+                        </div>
+                        <div class="photo-slot">
+                            <img src="Pecas.jpg" alt="Foto de Pecas" style="width:100%; border-radius:12px;">
+                        </div>
+                        <div class="photo-slot">
+                            <img src="Mcdonals.jpg" alt="Foto en McDonald's" style="width:100%; border-radius:12px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Final -->
+    <section class="final-section">
+        <div class="container">
+            <h2>Un mes juntos</h2>
+            <p>Lina, este tiempo contigo ha sido maravilloso. Desde ese match del 19 de marzo y nuestra primera cita del 14 de abril, hasta aquel día pintando cerámica juntos el 21 de abril, cuando me di cuenta de lo especial que eras para mí.</p>
+            <p>Desde los nervios de querer besarte y no saber cómo hacerlo, hasta que finalmente sucedió en el BBC. Desde el picnic, donde entendí que nuestra relación crecía, hasta cuando te pedí que fueras mi novia.</p>
+            <p><strong>Esta no es toda la historia de cómo me enamoré de ti, porque sería muchísimo más larga, pero sí son los momentos que consideré más importantes.</strong></p>
+            <p>La verdad quería llevarte todo esto en un librito, pero como bien sabes soy pésimo con Canva y no logré encuadrar nada. Así que decidí hacerlo así, con todo mi cariño, esperando que te guste.</p>
+            <p>Gracias por ser tú, por tu paciencia con este ingeniero introvertido que buscaba cualquier excusa para verte, por hacer que cada momento sea especial.</p>
+            <p><strong>Te amo con todo mi corazon. Aquí está la historia de los momentos más importantes de cómo me enamoré de ti, pero la verdad es que me sigo enamorando cada día. ❤️</strong></p>
+            
+            <a href="#" class="soft-button" onclick="createHearts(100)">Presiona aquí para más amor 💕</a>
+        </div>
+    </section>
+
+    <script>
+        // Animación de scroll para las secciones
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-content').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Función para crear corazones
+        function createHearts(amount = 20) {
+            for (let i = 0; i < amount; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.className = 'heart';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = Math.random() * 100 + 'vh'; // Distribuye en toda la pantalla
+                    heart.style.fontSize = (16 + Math.random() * 32) + 'px'; // Tamaños variados
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 15000);
+                }, i * 30); // Más rápido para muchos corazones
+            }
+        }
+
+        // Crear algunos corazones automáticamente
+        setInterval(() => createHearts(20), 10000);
+    </script>
+</body>
+</html>
